@@ -16,6 +16,8 @@ type Array = {
   techStack: string;
 };
 
+const BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
+
 export const Interview = () => {
   const { transcript, browserSupportsSpeechRecognition, resetTranscript } =
     useSpeechRecognition();
@@ -60,7 +62,7 @@ export const Interview = () => {
   useEffect(() => {
     setRender(true);
     axios
-      .get(`http://localhost:8080/questions/get?techStack=${techStack}`)
+      .get(`${BASE_URL}/questions/get?techStack=${techStack}`)
       .then((res) => {
         // console.log(res.data);
         setQuestions(res.data);
@@ -77,7 +79,7 @@ export const Interview = () => {
 
     let prompt = `Consider your self as a interviewer for full stack web developer. This is question :- ${questions[currentIndex].question} and this is my answer of this question :- ${transcript} give me feedback on this answer. The feedback should be evaluated using the following rubrics Feedback for Subject Matter Expertise and Communication skills should contain ratings on my interview responses from 0 - 10. Don't mention any where that you are an AI model just give feedback`;
     axios
-      .get(`http://localhost:8081/bot/chat?prompt= ${prompt}`)
+      .get(`${BASE_URL}/bot/chat?prompt=${prompt}`)
       .then((res) => {
         setFeedBack(res.data);
         setIsLoading(false);
