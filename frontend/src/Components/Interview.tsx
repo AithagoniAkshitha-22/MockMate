@@ -9,7 +9,6 @@ import Webcam from "react-webcam";
 import { MdCopyAll } from "react-icons/md";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
-import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
 import { Loader } from "./Loader ";
 
 type Array = {
@@ -25,7 +24,7 @@ export const Interview = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showFeed, setShowFeed] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const techStack = searchParams.get("tectStack");
   const [questions, setQuestions] = useState<Array[]>([]);
   const [render, setRender] = useState<boolean>(false);
@@ -34,9 +33,6 @@ export const Interview = () => {
   const start = () => {
     alert("Interview Started");
     SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
-  };
-  const stop = () => {
-    SpeechRecognition.stopListening();
   };
 
   const handleClear = () => {
@@ -72,7 +68,7 @@ export const Interview = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [techStack]);
 
   const handleSubmit = () => {
     setShowFeed(true);
