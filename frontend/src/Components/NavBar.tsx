@@ -31,7 +31,7 @@ export const NavBar = () => {
 
 const DIV = styled.div<{ isOpen: boolean }>`
 width:100%;
-height: 80px;
+height: 90px;
 display: flex;
 justify-content: space-between;
 align-items: center;
@@ -108,7 +108,7 @@ padding: 0 50px;
 }
 
 @media (max-width: 768px) {
-  height: 60px;
+  height: 70px;
   padding: 0 20px;
 
   .logo-container {
@@ -130,7 +130,7 @@ padding: 0 50px;
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 57px; /* Matches bottom of mobile header (60px total minus 3px border-bottom for perfect overlay) */
+    top: 67px; /* Matches bottom of mobile header (70px total minus 3px border-bottom for perfect overlay) */
     left: 0;
     width: 100%;
     background-color: #ff4b91;
