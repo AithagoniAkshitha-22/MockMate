@@ -191,26 +191,22 @@ export const Interview = () => {
                 )}
               </div>
               <div className="btn-contianer">
-                <div>
-                  <button className="btn copy" onClick={setCopied}>
-                    {isCopied ? "Copied!" : "Copy"}{" "}
-                    <MdCopyAll className="copy-icon" />
-                  </button>
-                </div>
-                <div>
-                  <button className="btn" onClick={start}>
-                    Start
-                  </button>
-                  <button className="btn stop" onClick={handleTurnoff}>
-                    Stop
-                  </button>
-                  <button className="btn" onClick={handleClear}>
-                    Clear
-                  </button>
-                  <button className="btn" onClick={handleSubmit}>
-                    Submit
-                  </button>
-                </div>
+                <button className="btn copy" onClick={setCopied}>
+                  {isCopied ? "Copied!" : "Copy"}{" "}
+                  <MdCopyAll className="copy-icon" />
+                </button>
+                <button className="btn" onClick={start}>
+                  Start
+                </button>
+                <button className="btn stop" onClick={handleTurnoff}>
+                  Stop
+                </button>
+                <button className="btn" onClick={handleClear}>
+                  Clear
+                </button>
+                <button className="btn" onClick={handleSubmit}>
+                  Submit
+                </button>
               </div>
             </div>
           )}
@@ -253,6 +249,12 @@ const DIV = styled.div`
     display: flex;
     justify-content: right;
     padding-top: 30px;
+  }
+
+  .cam-container video {
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
   }
 
   .question {
@@ -305,6 +307,7 @@ const DIV = styled.div`
     box-shadow: 0 4px 10px rgba(255, 75, 145, 0.2);
     display: flex;
     align-items: center;
+    margin-right: auto;
   }
 
   .copy:hover {
@@ -451,6 +454,10 @@ const DIV = styled.div`
       padding-top: 0;
     }
 
+    .cam-container video {
+      max-height: 180px;
+    }
+
     .btn-contianer {
       flex-direction: row;
       flex-wrap: wrap;
@@ -459,10 +466,11 @@ const DIV = styled.div`
       gap: 10px;
       width: 95%;
       margin: 15px auto 0;
+      padding-bottom: 30px;
     }
 
-    .btn-contianer > div {
-      display: contents;
+    .copy {
+      margin-right: 5px !important;
     }
 
     .btn {
