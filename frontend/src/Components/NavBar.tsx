@@ -7,10 +7,10 @@ export const NavBar = () => {
   return (
     <DIV>
         <div className='logo-container'>
-        <Link className='link' to={"/"}>
-          <img className='logo' src={Logo} alt="logo" />
-        </Link>
-          MockMate
+          <Link to={"/"} style={{ display: 'flex', alignItems: 'center' }}>
+            <img className='logo' src={Logo} alt="logo" />
+          </Link>
+          <span className='brand-name'>MockMate</span>
         </div>
         <div className='links-container'>
           <Link className='link' to={"/"}>Home</Link>
@@ -56,12 +56,17 @@ border-bottom: 3px solid #0ea5e9;
 
 .logo-container{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   margin-left: 50px;
+  gap: 12px;
+}
+
+.brand-name {
+  color: white;
   font-weight: bold;
-  color: #0284c7;
+  font-size: 24px;
 }
 
 @media (max-width: 768px) {
@@ -74,6 +79,11 @@ border-bottom: 3px solid #0ea5e9;
 
   .logo-container {
     margin-left: 0;
+    gap: 8px;
+  }
+
+  .brand-name {
+    font-size: 20px;
   }
 
   .links-container {
