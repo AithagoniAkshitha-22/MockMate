@@ -53,6 +53,84 @@ export const InterviewTypes = () => {
           <StartButton>Start Interview</StartButton>
         </Link>
       </Card>
+
+      <Card>
+        <Title>Self Introduction</Title>
+        <Description>
+          A Self Introduction interview evaluates your communication, presentation,
+          and background pitching skills. It covers essential HR and career summary
+          questions designed to highlight your strengths, achievements, and fit
+          for the target organization. This is common for initial vetting and fit checks.
+        </Description>
+        <Link style={{textDecoration : "none"}} to={"/interview/intro?techStack=intro"}>
+          <StartButton>Start Interview</StartButton>
+        </Link>
+      </Card>
+
+      <Card>
+        <Title>HTML</Title>
+        <Description>
+          An HTML (HyperText Markup Language) interview focuses on structuring web
+          pages, semantic elements, DOM hierarchy, and accessibility standards.
+          It evaluates your core foundations for building valid, SEO-friendly, and
+          accessible markup structures for web applications.
+        </Description>
+        <Link style={{textDecoration : "none"}} to={"/interview/html?techStack=html"}>
+          <StartButton>Start Interview</StartButton>
+        </Link>
+      </Card>
+
+      <Card>
+        <Title>CSS</Title>
+        <Description>
+          A CSS (Cascading Style Sheets) interview assesses your ability to style
+          web pages, manage layouts using Flexbox and CSS Grid, build responsive
+          designs with media queries, and leverage modern transitions, keyframe
+          animations, and custom variables.
+        </Description>
+        <Link style={{textDecoration : "none"}} to={"/interview/css?techStack=css"}>
+          <StartButton>Start Interview</StartButton>
+        </Link>
+      </Card>
+
+      <Card>
+        <Title>JavaScript</Title>
+        <Description>
+          A JavaScript interview evaluates your proficiency in scripting and
+          interactive logic. It covers variables scope, closures, event loop
+          internals, asynchronous operations (Promises, async/await), DOM interaction,
+          and modern ES6+ language features.
+        </Description>
+        <Link style={{textDecoration : "none"}} to={"/interview/javascript?techStack=javascript"}>
+          <StartButton>Start Interview</StartButton>
+        </Link>
+      </Card>
+
+      <Card>
+        <Title>SQL</Title>
+        <Description>
+          An SQL (Structured Query Language) interview assesses your relational
+          database expertise. It covers data definition, writing complex queries,
+          joins, database normalization, schema design, and query optimization
+          techniques.
+        </Description>
+        <Link style={{textDecoration : "none"}} to={"/interview/sql?techStack=sql"}>
+          <StartButton>Start Interview</StartButton>
+        </Link>
+      </Card>
+
+      <Card>
+        <Title>Python</Title>
+        <Description>
+          A Python interview tests your object-oriented and scripting skills using
+          Pythonic conventions. It covers key structures, decorators, memory
+          management, deep/shallow copies, custom generators, and popular libraries
+          for scripting and software development.
+        </Description>
+        <Link style={{textDecoration : "none"}} to={"/interview/python?techStack=python"}>
+          <StartButton>Start Interview</StartButton>
+        </Link>
+      </Card>
     </Container>
   );
 };

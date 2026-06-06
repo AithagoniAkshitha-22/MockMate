@@ -81,7 +81,14 @@ export const Interview = () => {
     setIsLoading(true);
     SpeechRecognition.stopListening();
 
-    let prompt = `Consider your self as a interviewer for full stack web developer. This is question :- ${questions[currentIndex].question} and this is my answer of this question :- ${transcript} give me feedback on this answer. The feedback should be evaluated using the following rubrics Feedback for Subject Matter Expertise and Communication skills should contain ratings on my interview responses from 0 - 10. Don't mention any where that you are an AI model just give feedback`;
+    let role = "full stack web developer";
+    if (techStack === "intro") role = "human resources manager";
+    else if (techStack === "html" || techStack === "css" || techStack === "javascript") role = "frontend developer";
+    else if (techStack === "sql") role = "database administrator";
+    else if (techStack === "python") role = "python developer";
+    else if (techStack === "java") role = "java backend developer";
+
+    let prompt = `Consider yourself as an interviewer for a ${role} role. This is the question: "${questions[currentIndex].question}" and this is my answer: "${transcript}". Please give me structured feedback on my response. The feedback should be evaluated using the following rubrics: Feedback for Subject Matter Expertise and Communication skills, and include ratings from 0 to 10. Do not mention that you are an AI model.`;
     axios
       .get(`${BASE_URL}/bot/chat?prompt=${prompt}`)
       .then((res) => {
@@ -445,22 +452,23 @@ const DIV = styled.div`
     }
 
     .btn-contianer {
-      flex-direction: column;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
       align-items: center;
-      gap: 15px;
-      margin-top: 15px;
+      gap: 10px;
+      width: 95%;
+      margin: 15px auto 0;
     }
 
     .btn-contianer > div {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
+      display: contents;
     }
 
     .btn {
       margin: 5px !important;
+      padding: 8px 16px;
+      font-size: 14px;
     }
 
     .feedback-container {
