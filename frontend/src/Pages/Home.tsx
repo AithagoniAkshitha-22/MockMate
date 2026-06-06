@@ -55,7 +55,7 @@ export const Home = () => {
 
 const DIV = styled.div`
   width: 100%;
-  min-height: calc(100vh - 83px);
+  min-height: calc(100vh - 80px);
   box-sizing: border-box;
   background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #0ea5e9 100%);
   display: flex;
@@ -127,7 +127,7 @@ h1{
   }
 
   @media (max-width: 768px) {
-    height: calc(100vh - 83px);
+    height: calc(100vh - 60px);
     overflow: hidden;
     box-sizing: border-box;
     padding-top: 20px;

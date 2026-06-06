@@ -31,15 +31,15 @@ export const NavBar = () => {
 
 const DIV = styled.div<{ isOpen: boolean }>`
 width:100%;
-height: 40px;
+height: 80px;
 display: flex;
 justify-content: space-between;
-padding-top: 20px;
-padding-bottom:20px;
+align-items: center;
 background-color: #ff4b91;
 border-bottom: 3px solid #0ea5e9;
 position: relative;
 box-sizing: border-box;
+padding: 0 50px;
 
 .link {
   margin: 0 20px;
@@ -56,7 +56,6 @@ box-sizing: border-box;
 .links-container{
   display: flex;
   align-items: center;
-  margin-right: 20px;
 }
 
 .logo{
@@ -68,7 +67,6 @@ box-sizing: border-box;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-left: 50px;
   gap: 12px;
 }
 
@@ -87,7 +85,6 @@ box-sizing: border-box;
   gap: 5px;
   width: 30px;
   height: 30px;
-  margin-right: 20px;
 }
 
 .bar {
@@ -111,13 +108,11 @@ box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
-  height: 50px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  align-items: center;
+  height: 60px;
+  padding: 0 20px;
 
   .logo-container {
-    margin-left: 20px;
+    margin-left: 0;
     gap: 8px;
   }
 
@@ -128,26 +123,36 @@ box-sizing: border-box;
   .hamburger {
     display: flex;
     z-index: 101;
+    margin-right: 0;
   }
 
   .links-container {
-    display: none;
+    display: flex;
     flex-direction: column;
     position: absolute;
-    top: 77px; /* 50px height + 15px top + 15px bottom + 3px border - 6px overlay */
+    top: 57px; /* Matches bottom of mobile header (60px total minus 3px border-bottom for perfect overlay) */
     left: 0;
     width: 100%;
     background-color: #ff4b91;
     border-bottom: 3px solid #0ea5e9;
-    padding: 20px 0;
-    gap: 20px;
     z-index: 100;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
+    
+    /* Sliding animation properties */
+    max-height: 0;
+    opacity: 0;
+    padding: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.3s ease-in-out,
+                padding 0.4s ease-in-out;
   }
 
   .links-container.open {
-    display: flex;
+    max-height: 300px;
+    opacity: 1;
+    padding: 20px 0;
   }
 
   .link {
