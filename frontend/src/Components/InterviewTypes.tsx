@@ -5,6 +5,19 @@ export const InterviewTypes = () => {
   return (
     <Container>
       <Card>
+        <Title>Self Introduction</Title>
+        <Description>
+          A Self Introduction interview evaluates your communication, presentation,
+          and background pitching skills. It covers essential HR and career summary
+          questions designed to highlight your strengths, achievements, and fit
+          for the target organization. This is common for initial vetting and fit checks.
+        </Description>
+        <Link style={{textDecoration : "none"}} to={"/interview/intro?techStack=intro"}>
+          <StartButton>Start Interview</StartButton>
+        </Link>
+      </Card>
+
+      <Card>
         <Title>MERN</Title>
         <Description>
           A MERN (MongoDB, Express.js, React, Node.js) interview assesses a
@@ -50,19 +63,6 @@ export const InterviewTypes = () => {
           development, and enterprise-level application development.
         </Description>
         <Link style={{textDecoration : "none"}} to={"/interview/java?techStack=java"}>
-          <StartButton>Start Interview</StartButton>
-        </Link>
-      </Card>
-
-      <Card>
-        <Title>Self Introduction</Title>
-        <Description>
-          A Self Introduction interview evaluates your communication, presentation,
-          and background pitching skills. It covers essential HR and career summary
-          questions designed to highlight your strengths, achievements, and fit
-          for the target organization. This is common for initial vetting and fit checks.
-        </Description>
-        <Link style={{textDecoration : "none"}} to={"/interview/intro?techStack=intro"}>
           <StartButton>Start Interview</StartButton>
         </Link>
       </Card>
