@@ -8,7 +8,7 @@ import styled from "styled-components";
 import Webcam from "react-webcam";
 import { MdCopyAll } from "react-icons/md";
 import axios from "axios";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { Loader } from "./Loader ";
 
 type Array = {
@@ -26,9 +26,11 @@ export const Interview = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showFeed, setShowFeed] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const { techStack: routeTechStack } = useParams();
   const [searchParams] = useSearchParams();
-  const techStack = searchParams.get("tectStack");
+  const techStack = searchParams.get("techStack") || searchParams.get("tectStack") || routeTechStack || "mern";
   const [questions, setQuestions] = useState<Array[]>([]);
+  const [isQuestionsLoading, setIsQuestionsLoading] = useState(true);
   const [render, setRender] = useState<boolean>(false);
   const [feedBack, setFeedBack] = useState<string>("");
 
@@ -61,14 +63,16 @@ export const Interview = () => {
 
   useEffect(() => {
     setRender(true);
+    setIsQuestionsLoading(true);
     axios
       .get(`${BASE_URL}/questions/get?techStack=${techStack}`)
       .then((res) => {
-        // console.log(res.data);
         setQuestions(res.data);
+        setIsQuestionsLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setIsQuestionsLoading(false);
       });
   }, [techStack]);
 
@@ -150,7 +154,7 @@ export const Interview = () => {
                   <h1>Question {currentIndex + 1}</h1>
                   <p className="question">
                     {currentIndex + 1}.{" "}
-                    {questions.length !== 0 && questions[currentIndex].question}
+                    {isQuestionsLoading ? "Loading interview questions from server..." : (questions.length !== 0 && questions[currentIndex].question)}
                   </p>
                   <p className="Caution">
                     Caution: We kindly request that you refrain from refreshing

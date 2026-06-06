@@ -15,7 +15,7 @@ export const InterviewTypes = () => {
           focuses on coding skills, architecture, and best practices to gauge a
           candidate's readiness for MERN stack development roles.
         </Description>
-        <Link style={{textDecoration : "none"}} to={"/interview/mern?tectStack=mern"}>
+        <Link style={{textDecoration : "none"}} to={"/interview/mern?techStack=mern"}>
           <StartButton>Start Interview</StartButton>
         </Link>
       </Card>
@@ -32,7 +32,7 @@ export const InterviewTypes = () => {
           issues, making them suitable for backend development roles in web and
           application development.
         </Description>
-        <Link style={{textDecoration : "none"}} to={"/interview/mern?tectStack=node"}>
+        <Link style={{textDecoration : "none"}} to={"/interview/node?techStack=node"}>
           <StartButton>Start Interview</StartButton>
         </Link>
       </Card>
@@ -49,7 +49,7 @@ export const InterviewTypes = () => {
           development roles, including backend development, Android app
           development, and enterprise-level application development.
         </Description>
-        <Link style={{textDecoration : "none"}} to={"/interview/mern?tectStack=java"}>
+        <Link style={{textDecoration : "none"}} to={"/interview/java?techStack=java"}>
           <StartButton>Start Interview</StartButton>
         </Link>
       </Card>
