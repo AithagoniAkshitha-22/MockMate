@@ -29,7 +29,7 @@ export const Home = () => {
       <div className="text">
         <h1>Have your <br />best <strong>Mock</strong> <br /> interview session</h1>
         <p>Ace Your Interviews with AI-Powered Practice Sessions.</p>
-        <Link to={"/interviews"}>
+        <Link to={"/interviews"} style={{ textDecoration: 'none' }}>
            <button>Try it Free</button>
         </Link>
       </div>
@@ -127,21 +127,24 @@ h1{
   }
 
   @media (max-width: 768px) {
-    min-height: calc(100vh - 130px);
+    height: calc(100vh - 83px);
+    overflow: hidden;
     box-sizing: border-box;
-    padding-top: 40px;
-    padding-bottom: 60px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-left: 20px;
     padding-right: 20px;
-    gap: 40px;
+    gap: 20px;
     
     h1 {
-      font-size: 32px;
+      font-size: 28px;
       line-height: 1.2;
+      margin-block-start: 10px;
+      margin-block-end: 10px;
     }
 
     button {
@@ -149,7 +152,7 @@ h1{
       max-width: 220px;
       font-size: 20px;
       padding: 12px;
-      margin: 20px auto 0;
+      margin: 15px auto 0;
       display: block;
     }
 
@@ -163,7 +166,9 @@ h1{
 
     .image {
       width: 100%;
-      max-width: 280px;
+      max-width: 250px;
+      max-height: 25vh;
+      object-fit: contain;
     }
   }
 `;

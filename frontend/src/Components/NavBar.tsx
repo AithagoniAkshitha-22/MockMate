@@ -1,28 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Link} from "react-router-dom";
 import styled from "styled-components";
 import Logo from "../assets/pngwing3.png"
 
 export const NavBar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <DIV>
+    <DIV isOpen={isOpen}>
         <div className='logo-container'>
-          <Link to={"/"} style={{ display: 'flex', alignItems: 'center' }}>
+          <Link to={"/"} style={{ display: 'flex', alignItems: 'center' }} onClick={() => setIsOpen(false)}>
             <img className='logo' src={Logo} alt="logo" />
           </Link>
           <span className='brand-name'>MockMate</span>
         </div>
-        <div className='links-container'>
-          <Link className='link' to={"/"}>Home</Link>
-          <Link className='link' to={"/interviews"}>Interviews</Link>
-          <Link className='link' to={"/about"}>About</Link>
-          <Link className='link' to={"/contact"}>Contact</Link>
+        <div className={`hamburger ${isOpen ? 'open' : ''}`} onClick={() => setIsOpen(!isOpen)}>
+          <div className='bar'></div>
+          <div className='bar'></div>
+          <div className='bar'></div>
+        </div>
+        <div className={`links-container ${isOpen ? 'open' : ''}`}>
+          <Link className='link' to={"/"} onClick={() => setIsOpen(false)}>Home</Link>
+          <Link className='link' to={"/interviews"} onClick={() => setIsOpen(false)}>Interviews</Link>
+          <Link className='link' to={"/about"} onClick={() => setIsOpen(false)}>About</Link>
+          <Link className='link' to={"/contact"} onClick={() => setIsOpen(false)}>Contact</Link>
         </div>
     </DIV>
   )
 }
 
-const DIV = styled.div`
+const DIV = styled.div<{ isOpen: boolean }>`
 width:100%;
 height: 40px;
 display: flex;
@@ -31,6 +38,8 @@ padding-top: 20px;
 padding-bottom:20px;
 background-color: #ff4b91;
 border-bottom: 3px solid #0ea5e9;
+position: relative;
+box-sizing: border-box;
 
 .link {
   margin: 0 20px;
@@ -69,16 +78,46 @@ border-bottom: 3px solid #0ea5e9;
   font-size: 24px;
 }
 
-@media (max-width: 768px) {
+.hamburger {
+  display: none;
   flex-direction: column;
-  height: auto;
-  align-items: center;
   justify-content: center;
-  gap: 15px;
-  padding: 15px 10px;
+  align-items: center;
+  cursor: pointer;
+  gap: 5px;
+  width: 30px;
+  height: 30px;
+  margin-right: 20px;
+}
+
+.bar {
+  width: 22px;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.hamburger.open .bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.open .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open .bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+  height: 50px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  align-items: center;
 
   .logo-container {
-    margin-left: 0;
+    margin-left: 20px;
     gap: 8px;
   }
 
@@ -86,15 +125,41 @@ border-bottom: 3px solid #0ea5e9;
     font-size: 20px;
   }
 
+  .hamburger {
+    display: flex;
+    z-index: 101;
+  }
+
   .links-container {
-    margin-right: 0;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 77px; /* 50px height + 15px top + 15px bottom + 3px border - 6px overlay */
+    left: 0;
+    width: 100%;
+    background-color: #ff4b91;
+    border-bottom: 3px solid #0ea5e9;
+    padding: 20px 0;
+    gap: 20px;
+    z-index: 100;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+  }
+
+  .links-container.open {
+    display: flex;
   }
 
   .link {
-    margin: 0 10px;
+    margin: 0;
+    font-size: 18px;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+  .link:hover {
+    background-color: rgba(2, 132, 199, 0.2);
   }
 }
 `;
