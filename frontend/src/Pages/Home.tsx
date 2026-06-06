@@ -13,9 +13,9 @@ export const Home = () => {
     const box = card.getBoundingClientRect();
     const x = e.clientX - box.left - box.width / 2;
     const y = e.clientY - box.top - box.height / 2;
-    // Limit rotation to 25 degrees
-    const factorX = (x / (box.width / 2)) * 25;
-    const factorY = (y / (box.height / 2)) * -25;
+    // Increase rotation limit to 40 degrees for higher bounce/rotate effect
+    const factorX = (x / (box.width / 2)) * 40;
+    const factorY = (y / (box.height / 2)) * -40;
     setCoords({ x: factorX, y: factorY });
   };
 
@@ -80,10 +80,10 @@ h1{
   }
 
   .image-card {
-    transition: transform 0.15s ease-out;
+    transition: transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.45);
     transform-style: preserve-3d;
     filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.4));
-    animation: floatMascot 4s ease-in-out infinite;
+    animation: floatMascot 3.5s ease-in-out infinite;
   }
 
   .image {
@@ -94,12 +94,12 @@ h1{
 
   @keyframes floatMascot {
     0%, 100% {
-      transform: translateY(0);
-      filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.4));
+      transform: translateY(0) rotate(-4deg);
+      filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.35));
     }
     50% {
-      transform: translateY(-12px);
-      filter: drop-shadow(0 32px 40px rgba(0, 0, 0, 0.25));
+      transform: translateY(-28px) rotate(4deg);
+      filter: drop-shadow(0 38px 35px rgba(0, 0, 0, 0.2));
     }
   }
   
