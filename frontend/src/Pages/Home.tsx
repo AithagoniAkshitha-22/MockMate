@@ -28,7 +28,7 @@ export const Home = () => {
 const DIV = styled.div`
   width: 100%;
   height: 400px;
-  background: linear-gradient(135deg, #ff80b5 0%, #0ea5e9 100%);
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #0ea5e9 100%);
   display: flex;
   margin-top: 0px;
   padding-top: 130px;
