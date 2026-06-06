@@ -126,22 +126,42 @@ h1{
   }
 
   @media (max-width: 768px) {
+    height: auto;
     padding-top: 40px;
     padding-bottom: 60px;
-    width:100%;
+    width: 100%;
     display: flex;
-    flex-direction:column;
-    padding-left:20px;
-    padding-right:20px;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 40px;
     
+    h1 {
+      font-size: 32px;
+      line-height: 1.2;
+    }
+
     button {
-      width: 50%;
+      width: 100%;
+      max-width: 220px;
       font-size: 20px;
       padding: 12px;
-      margin:20px;
+      margin: 20px auto 0;
+      display: block;
     }
+
     .text {
-      margin-top:5px;
+      margin-top: 5px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .image {
+      width: 100%;
+      max-width: 280px;
     }
   }
 `;

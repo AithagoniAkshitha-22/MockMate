@@ -415,4 +415,77 @@ const DIV = styled.div`
     display: flex;
     justify-content: center;
   }
+
+  @media (max-width: 768px) {
+    .question-and-cam-container {
+      flex-direction: column;
+      height: auto;
+      width: 95%;
+      gap: 20px;
+    }
+
+    .question-container {
+      width: 100%;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .question {
+      margin-left: 0;
+    }
+
+    .cam-container {
+      width: 100%;
+      justify-content: center;
+      padding-top: 0;
+    }
+
+    .btn-contianer {
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .btn-contianer > div {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .btn {
+      margin: 5px !important;
+    }
+
+    .feedback-container {
+      padding: 20px 10px;
+      align-items: center;
+    }
+
+    .feedback {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .student-answer, .chat-feedback {
+      height: 350px;
+      width: 100%;
+      padding: 15px 20px;
+    }
+
+    .next-prev-container {
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      gap: 10px;
+    }
+
+    .next-Question-btn {
+      margin: 0;
+      width: 100%;
+      max-width: 250px;
+    }
+  }
 `;

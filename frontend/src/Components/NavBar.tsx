@@ -65,9 +65,26 @@ border-bottom: 3px solid #0ea5e9;
 }
 
 @media (max-width: 768px) {
-  display: flex;
-  justify-content: space-around;
-  width:100%;
-  padding: 15px 20px;
+  flex-direction: column;
+  height: auto;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 15px 10px;
+
+  .logo-container {
+    margin-left: 0;
+  }
+
+  .links-container {
+    margin-right: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .link {
+    margin: 0 10px;
+  }
 }
 `;
