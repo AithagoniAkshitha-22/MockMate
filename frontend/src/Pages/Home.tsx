@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 // import aiImage from "../assets/intervuew2.jpg";
 import aiImage from "../assets/pngwing2.png";
@@ -6,6 +6,23 @@ import {Link} from "react-router-dom";
 
 
 export const Home = () => {
+  const [coords, setCoords] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const box = card.getBoundingClientRect();
+    const x = e.clientX - box.left - box.width / 2;
+    const y = e.clientY - box.top - box.height / 2;
+    // Limit rotation to 25 degrees
+    const factorX = (x / (box.width / 2)) * 25;
+    const factorY = (y / (box.height / 2)) * -25;
+    setCoords({ x: factorX, y: factorY });
+  };
+
+  const handleMouseLeave = () => {
+    setCoords({ x: 0, y: 0 });
+  };
+
   return (
     <>
     <DIV>
@@ -16,8 +33,19 @@ export const Home = () => {
            <button>Try it Free</button>
         </Link>
       </div>
-      <div className="image-container">
-        <img src={aiImage} alt="" className="image" />
+      <div 
+        className="image-container-3d"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
+        <div 
+          className="image-card"
+          style={{
+            transform: `rotateX(${coords.y}deg) rotateY(${coords.x}deg) scale(1.08)`
+          }}
+        >
+          <img src={aiImage} alt="Robot mascot" className="image" />
+        </div>
       </div>
      
     </DIV>
@@ -44,14 +72,35 @@ h1{
     text-align: left;
   }
 
-  .image-container {
-    border-radius: 10%;
-    overflow: hidden;
+  .image-container-3d {
+    perspective: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .image-card {
+    transition: transform 0.15s ease-out;
+    transform-style: preserve-3d;
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.4));
+    animation: floatMascot 4s ease-in-out infinite;
   }
 
   .image {
     width: 400px;
     height: auto;
+    pointer-events: none;
+  }
+
+  @keyframes floatMascot {
+    0%, 100% {
+      transform: translateY(0);
+      filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.4));
+    }
+    50% {
+      transform: translateY(-12px);
+      filter: drop-shadow(0 32px 40px rgba(0, 0, 0, 0.25));
+    }
   }
   
   button {
