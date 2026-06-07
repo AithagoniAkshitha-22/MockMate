@@ -42,8 +42,6 @@ I am developing an AI-powered self-interview preparation platform. This platform
 - **Data Visualization and Insights**: Charts (optional)
 - **Backend Options**: Node.js with Express and MongoDB or Java Spring Boot
 
-## License
+## 🔗 GitHub Repository
 
-This project is licensed under the [MIT License](LICENSE).
-
-Happy coding!
+https://github.com/AithagoniAkshitha-22/MockMate
