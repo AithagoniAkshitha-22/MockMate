@@ -130,7 +130,7 @@ export const Home = () => {
             </ContactInfoList>
           </ContactInfoCard>
 
-          <ContactFormCard onSubmit={(e: React.FormEvent) => { e.preventDefault(); alert("Thank you for reaching out! We'll get back to you soon."); }}>
+          <ContactFormCard onSubmit={(e: React.FormEvent<HTMLFormElement>) => { e.preventDefault(); alert("Thank you for reaching out! We'll get back to you soon."); e.currentTarget.reset(); }}>
             <CardTitle>Send a Message</CardTitle>
             <FormGroup>
               <InputLabel htmlFor="name">Full Name</InputLabel>

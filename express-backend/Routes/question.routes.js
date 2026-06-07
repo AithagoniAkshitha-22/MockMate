@@ -71,6 +71,9 @@ const fallbackQuestions = {
 
 QuestionRouter.post("/add", async(req, res) =>{
     try {
+        if (req.body && req.body.techStack) {
+            req.body.techStack = String(req.body.techStack).trim().toLowerCase();
+        }
         const NewQuestion = new QuestionModel(req.body);
         await NewQuestion.save();
         res.status(200).json({msg : "New Question has been Added"});
@@ -83,16 +86,20 @@ QuestionRouter.get("/get", async(req, res) =>{
     const techStack = req.query.techStack;
     try {
         const mongoose = require("mongoose");
+        const normalizedKey = techStack ? String(techStack).trim().toLowerCase() : "mern";
         if (mongoose.connection.readyState === 1) {
-            const Questions = await QuestionModel.find({techStack});
+            const Questions = await QuestionModel.find({
+                techStack: { $regex: new RegExp(`^${normalizedKey.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}$`, "i") }
+            });
             if (Questions && Questions.length > 0) {
                 return res.status(200).json(Questions);
             }
         }
-        const list = fallbackQuestions[techStack] || fallbackQuestions['mern'];
+        const list = fallbackQuestions[normalizedKey] || fallbackQuestions['mern'];
         res.status(200).json(list);
     } catch (error) {
-        const list = fallbackQuestions[techStack] || fallbackQuestions['mern'];
+        const normalizedKey = techStack ? String(techStack).trim().toLowerCase() : "mern";
+        const list = fallbackQuestions[normalizedKey] || fallbackQuestions['mern'];
         res.status(200).json(list);
     }
 })
