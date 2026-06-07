@@ -70,9 +70,15 @@ export const Home = () => {
         <CardsContainer>
           <AboutCard>
             <CardTitle>What is MockMate?</CardTitle>
-            <CardDescription>
-              MockMate is a state-of-the-art AI-powered interview simulator built to mimic actual vetting processes. Whether you are rehearsing for engineering tracks, database architecture, or initial self-introduction screenings, MockMate provides a safe, realistic practice ground.
+            <CardDescription style={{ marginBottom: "15px", textAlign: "center" }}>
+              Your ultimate AI-powered preparation ground for technical and behavioral interviews.
             </CardDescription>
+            <FeatureList>
+              <FeatureItem><strong>Role Alignment</strong>: Technical tracks tailored to MERN, Python, Java, SQL, and HR vetting.</FeatureItem>
+              <FeatureItem><strong>Webcam Simulation</strong>: Immersive browser camera feed replicating real video calls.</FeatureItem>
+              <FeatureItem><strong>Vocal Interaction</strong>: Integrated speech recognition for interactive speech practice.</FeatureItem>
+              <FeatureItem><strong>Immediate Review</strong>: Instant grading rubrics with speech-synthesized playback.</FeatureItem>
+            </FeatureList>
           </AboutCard>
 
           <AboutCard>
@@ -228,6 +234,13 @@ const AboutSection = styled.section`
   align-items: center;
   width: 100%;
   box-sizing: border-box;
+  min-height: calc(100vh - 90px);
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    min-height: calc(100vh - 70px);
+    padding: 60px 15px;
+  }
 `;
 
 const AboutTitle = styled.h2`
