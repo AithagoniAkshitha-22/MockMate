@@ -25,11 +25,11 @@ export const Home = () => {
 
   useEffect(() => {
     const scrollParam = searchParams.get("scroll");
-    if (scrollParam === "about") {
-      const aboutSec = document.getElementById("about");
-      if (aboutSec) {
+    if (scrollParam === "about" || scrollParam === "contact") {
+      const targetSec = document.getElementById(scrollParam);
+      if (targetSec) {
         setTimeout(() => {
-          aboutSec.scrollIntoView({ behavior: "smooth" });
+          targetSec.scrollIntoView({ behavior: "smooth" });
         }, 150);
       }
       setSearchParams({}, { replace: true });
@@ -101,6 +101,53 @@ export const Home = () => {
           </AboutCard>
         </CardsContainer>
       </AboutSection>
+
+      <ContactSection id="contact">
+        <ContactTitle>Contact Us</ContactTitle>
+        <ContactSubtitle>
+          Have any questions, concerns, or feedback? Drop us a message, and our team will get back to you!
+        </ContactSubtitle>
+        <ContactContainer>
+          <ContactInfoCard>
+            <CardTitle style={{ color: "#ff4b91" }}>Contact Info</CardTitle>
+            <ContactInfoList>
+              <ContactInfoItem>
+                <strong>Email Us:</strong><br />
+                <a href="mailto:support@mockmate.ai" style={{ color: "#ff4b91", textDecoration: "none" }}>support@mockmate.ai</a>
+              </ContactInfoItem>
+              <ContactInfoItem>
+                <strong>Call Us:</strong><br />
+                +1 (555) 019-2834
+              </ContactInfoItem>
+              <ContactInfoItem>
+                <strong>Availability:</strong><br />
+                Monday - Friday, 9:00 AM - 6:00 PM EST
+              </ContactInfoItem>
+              <ContactInfoItem>
+                <strong>HQ Address:</strong><br />
+                100 AI Innovation Boulevard, Suite 500, Tech City, NY 10001
+              </ContactInfoItem>
+            </ContactInfoList>
+          </ContactInfoCard>
+
+          <ContactFormCard onSubmit={(e: React.FormEvent) => { e.preventDefault(); alert("Thank you for reaching out! We'll get back to you soon."); }}>
+            <CardTitle>Send a Message</CardTitle>
+            <FormGroup>
+              <InputLabel htmlFor="name">Full Name</InputLabel>
+              <FormInput id="name" type="text" placeholder="Enter your name" required />
+            </FormGroup>
+            <FormGroup>
+              <InputLabel htmlFor="email">Email Address</InputLabel>
+              <FormInput id="email" type="email" placeholder="Enter your email" required />
+            </FormGroup>
+            <FormGroup>
+              <InputLabel htmlFor="message">Your Message</InputLabel>
+              <FormTextArea id="message" rows={4} placeholder="Type your message here..." required />
+            </FormGroup>
+            <SubmitBtn type="submit">Submit Message</SubmitBtn>
+          </ContactFormCard>
+        </ContactContainer>
+      </ContactSection>
     </>
   );
 };
@@ -359,5 +406,203 @@ const FeatureItem = styled.li`
     left: 0;
     color: #ff4b91;
     font-weight: bold;
+  }
+`;
+
+const ContactSection = styled.section`
+  background: linear-gradient(135deg, #bae6fd 0%, #e0f2fe 100%);
+  color: #1e3a8a;
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: calc(100vh - 90px);
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    min-height: calc(100vh - 70px);
+    padding: 60px 15px;
+  }
+`;
+
+const ContactTitle = styled.h2`
+  font-size: 38px;
+  font-weight: 800;
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #0369a1;
+  text-align: center;
+  position: relative;
+  
+  &::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #ff4b91;
+    margin: 12px auto 0;
+    border-radius: 2px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 28px;
+  }
+`;
+
+const ContactSubtitle = styled.p`
+  font-size: 18px;
+  color: #0369a1;
+  max-width: 800px;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 40px;
+  line-height: 1.6;
+
+  @media (max-width: 768px) {
+    font-size: 15px;
+    padding: 0 10px;
+  }
+`;
+
+const ContactContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 40px;
+  max-width: 1100px;
+  width: 100%;
+  margin-top: 20px;
+  box-sizing: border-box;
+  
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 0 20px;
+  }
+`;
+
+const ContactInfoCard = styled.div`
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(3, 105, 161, 0.08);
+  border: 1px solid rgba(14, 165, 233, 0.2);
+  padding: 40px 35px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  text-align: left;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(3, 105, 161, 0.12);
+  }
+`;
+
+const ContactFormCard = styled.form`
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(3, 105, 161, 0.08);
+  border: 1px solid rgba(14, 165, 233, 0.2);
+  padding: 40px 35px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  text-align: left;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(3, 105, 161, 0.12);
+  }
+`;
+
+const ContactInfoList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 10px;
+`;
+
+const ContactInfoItem = styled.div`
+  font-size: 15px;
+  line-height: 1.6;
+  color: #4b5563;
+  
+  strong {
+    color: #1e3a8a;
+    font-size: 16px;
+  }
+`;
+
+const FormGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+  width: 100%;
+`;
+
+const InputLabel = styled.label`
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e3a8a;
+`;
+
+const FormInput = styled.input`
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  font-size: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  color: #1f2937;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: #ff4b91;
+    box-shadow: 0 0 0 3px rgba(255, 75, 145, 0.15);
+  }
+`;
+
+const FormTextArea = styled.textarea`
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  font-size: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  color: #1f2937;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: #ff4b91;
+    box-shadow: 0 0 0 3px rgba(255, 75, 145, 0.15);
+  }
+`;
+
+const SubmitBtn = styled.button`
+  background: linear-gradient(90deg, #ff4b91 0%, #ff80b5 100%);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0px 4px 15px rgba(255, 75, 145, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+  
+  &:hover {
+    background: linear-gradient(90deg, #0ea5e9 0%, #38bdf8 100%);
+    box-shadow: 0px 4px 15px rgba(14, 165, 233, 0.3);
+    transform: translateY(-2px);
   }
 `;

@@ -21,6 +21,19 @@ export const NavBar = () => {
     }
   };
 
+  const handleContactClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsOpen(false);
+    if (location.pathname === "/") {
+      const contactSec = document.getElementById("contact");
+      if (contactSec) {
+        contactSec.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      navigate("/?scroll=contact");
+    }
+  };
+
   return (
     <DIV isOpen={isOpen}>
         <div className='logo-container'>
@@ -38,7 +51,7 @@ export const NavBar = () => {
           <Link className='link' to={"/"} onClick={() => setIsOpen(false)}>Home</Link>
           <Link className='link' to={"/interviews"} onClick={() => setIsOpen(false)}>Interviews</Link>
           <a className='link' href="#about" onClick={handleAboutClick}>About</a>
-          <Link className='link' to={"/contact"} onClick={() => setIsOpen(false)}>Contact</Link>
+          <a className='link' href="#contact" onClick={handleContactClick}>Contact</a>
         </div>
     </DIV>
   )
