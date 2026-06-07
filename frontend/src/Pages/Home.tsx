@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-// import aiImage from "../assets/intervuew2.jpg";
 import aiImage from "../assets/pngwing2.png";
-import {Link} from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 
 export const Home = () => {
   const [coords, setCoords] = useState({ x: 0, y: 0 });
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
@@ -23,33 +23,79 @@ export const Home = () => {
     setCoords({ x: 0, y: 0 });
   };
 
+  useEffect(() => {
+    const scrollParam = searchParams.get("scroll");
+    if (scrollParam === "about") {
+      const aboutSec = document.getElementById("about");
+      if (aboutSec) {
+        setTimeout(() => {
+          aboutSec.scrollIntoView({ behavior: "smooth" });
+        }, 150);
+      }
+      setSearchParams({}, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
+
   return (
     <>
-    <DIV>
-      <div className="text">
-        <h1>Have your <br />best <strong>Mock</strong> <br /> interview session</h1>
-        <p>Ace Your Interviews with AI-Powered Practice Sessions.</p>
-        <Link to={"/interviews"} style={{ textDecoration: 'none' }}>
-           <button>Try it Free</button>
-        </Link>
-      </div>
-      <div 
-        className="image-container-3d"
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-      >
-        <div 
-          className="image-card"
-          style={{
-            transform: `rotateX(${coords.y}deg) rotateY(${coords.x}deg) scale(1.08)`
-          }}
-        >
-          <img src={aiImage} alt="Robot mascot" className="image" />
+      <DIV>
+        <div className="text">
+          <h1>Have your <br />best <strong>Mock</strong> <br /> interview session</h1>
+          <p>Ace Your Interviews with AI-Powered Practice Sessions.</p>
+          <Link to={"/interviews"} style={{ textDecoration: 'none' }}>
+             <button>Try it Free</button>
+          </Link>
         </div>
-      </div>
-     
-    </DIV>
-     </>
+        <div 
+          className="image-container-3d"
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div 
+            className="image-card"
+            style={{
+              transform: `rotateX(${coords.y}deg) rotateY(${coords.x}deg) scale(1.08)`
+            }}
+          >
+            <img src={aiImage} alt="Robot mascot" className="image" />
+          </div>
+        </div>
+      </DIV>
+
+      <AboutSection id="about">
+        <AboutTitle>About MockMate</AboutTitle>
+        <AboutSubtitle>
+          Empowering candidates to conquer interview anxiety and excel in technical & behavioral evaluations.
+        </AboutSubtitle>
+        <CardsContainer>
+          <AboutCard>
+            <CardTitle>What is MockMate?</CardTitle>
+            <CardDescription>
+              MockMate is a state-of-the-art AI-powered interview simulator built to mimic actual vetting processes. Whether you are rehearsing for engineering tracks, database architecture, or initial self-introduction screenings, MockMate provides a safe, realistic practice ground.
+            </CardDescription>
+          </AboutCard>
+
+          <AboutCard>
+            <CardTitle>Core Features</CardTitle>
+            <FeatureList>
+              <FeatureItem><strong>Dynamic Simulator</strong>: Adaptation to specific dev stacks & professional roles.</FeatureItem>
+              <FeatureItem><strong>Webcam Simulator</strong>: Realistic camera preview to replicate live interview environments.</FeatureItem>
+              <FeatureItem><strong>Voice Interaction</strong>: Automated Speech-to-Text response captures.</FeatureItem>
+              <FeatureItem><strong>AI Evaluation & Speech</strong>: Instant grading on subject matter and communication with synthesized audio feedback.</FeatureItem>
+            </FeatureList>
+          </AboutCard>
+
+          <AboutCard>
+            <CardTitle>How It Helps You</CardTitle>
+            <FeatureList>
+              <FeatureItem><strong>Build Confidence</strong>: Clear speech patterns and reduce anxiety through continuous practice.</FeatureItem>
+              <FeatureItem><strong>Identify Gaps</strong>: Uncover vocabulary blindspots or weak technical explanations.</FeatureItem>
+              <FeatureItem><strong>Tailored Tracking</strong>: Master key technologies with focused assessments built around standard questions.</FeatureItem>
+            </FeatureList>
+          </AboutCard>
+        </CardsContainer>
+      </AboutSection>
+    </>
   );
 };
 
@@ -170,5 +216,135 @@ h1{
       max-height: 25vh;
       object-fit: contain;
     }
+  }
+`;
+
+const AboutSection = styled.section`
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+  color: #1e3a8a;
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+`;
+
+const AboutTitle = styled.h2`
+  font-size: 38px;
+  font-weight: 800;
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #0369a1;
+  text-align: center;
+  position: relative;
+  
+  &::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #ff4b91;
+    margin: 12px auto 0;
+    border-radius: 2px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 28px;
+  }
+`;
+
+const AboutSubtitle = styled.p`
+  font-size: 18px;
+  color: #0369a1;
+  max-width: 800px;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 40px;
+  line-height: 1.6;
+
+  @media (max-width: 768px) {
+    font-size: 15px;
+    padding: 0 10px;
+  }
+`;
+
+const CardsContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1200px;
+  width: 100%;
+  margin-top: 20px;
+  box-sizing: border-box;
+  
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+`;
+
+const AboutCard = styled.div`
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(3, 105, 161, 0.08);
+  border: 1px solid rgba(14, 165, 233, 0.2);
+  padding: 35px 25px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+  
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(3, 105, 161, 0.15);
+    border-color: rgba(255, 75, 145, 0.4);
+  }
+`;
+
+const CardTitle = styled.h3`
+  font-size: 22px;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #0ea5e9;
+`;
+
+const CardDescription = styled.p`
+  font-size: 15px;
+  line-height: 1.6;
+  color: #4b5563;
+  margin: 0;
+  text-align: justify;
+`;
+
+const FeatureList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  width: 100%;
+`;
+
+const FeatureItem = styled.li`
+  font-size: 14px;
+  line-height: 1.5;
+  color: #4b5563;
+  margin-bottom: 12px;
+  position: relative;
+  padding-left: 20px;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  &::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #ff4b91;
+    font-weight: bold;
   }
 `;

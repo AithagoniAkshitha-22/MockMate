@@ -1,10 +1,25 @@
 import React, { useState } from 'react'
-import {Link} from "react-router-dom";
+import {Link, useNavigate, useLocation} from "react-router-dom";
 import styled from "styled-components";
 import Logo from "../assets/pngwing3.png"
 
 export const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleAboutClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsOpen(false);
+    if (location.pathname === "/") {
+      const aboutSec = document.getElementById("about");
+      if (aboutSec) {
+        aboutSec.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      navigate("/?scroll=about");
+    }
+  };
 
   return (
     <DIV isOpen={isOpen}>
@@ -22,7 +37,7 @@ export const NavBar = () => {
         <div className={`links-container ${isOpen ? 'open' : ''}`}>
           <Link className='link' to={"/"} onClick={() => setIsOpen(false)}>Home</Link>
           <Link className='link' to={"/interviews"} onClick={() => setIsOpen(false)}>Interviews</Link>
-          <Link className='link' to={"/about"} onClick={() => setIsOpen(false)}>About</Link>
+          <a className='link' href="#about" onClick={handleAboutClick}>About</a>
           <Link className='link' to={"/contact"} onClick={() => setIsOpen(false)}>Contact</Link>
         </div>
     </DIV>
