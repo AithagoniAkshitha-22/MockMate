@@ -143,9 +143,13 @@ export const Interview = () => {
     setRender(true);
     setIsQuestionsLoading(true);
     axios
-      .get(`${BASE_URL}/questions/get?techStack=${techStack}`)
+      .get(`${BASE_URL}/questions/get?techStack=${techStack}`, { timeout: 4000 })
       .then((res) => {
-        setQuestions(res.data);
+        if (Array.isArray(res.data) && res.data.length > 0) {
+          setQuestions(res.data);
+        } else {
+          throw new Error("Invalid or empty questions array from backend");
+        }
         setIsQuestionsLoading(false);
       })
       .catch((error) => {
