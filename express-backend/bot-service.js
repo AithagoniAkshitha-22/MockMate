@@ -73,25 +73,95 @@ app.get("/bot/chat", async (req, res) => {
 });
 
 function getMockFeedback(prompt) {
-    // Generate a beautiful mock feedback report
-    let tech = "the selected technology";
-    if (prompt.toLowerCase().includes("mern")) tech = "MERN Stack (MongoDB, Express, React, Node)";
-    else if (prompt.toLowerCase().includes("node")) tech = "Node.js & Backend Architecture";
-    else if (prompt.toLowerCase().includes("java")) tech = "Java & OOPs Principles";
+    let question = "the interview question";
+    let answer = "";
+    
+    const questionMatch = prompt.match(/This is the question:\s*["']([^"']+)["']/i);
+    const answerMatch = prompt.match(/this is my answer:\s*["']([^"']+)["']/i);
+    
+    if (questionMatch) {
+        question = questionMatch[1];
+    }
+    if (answerMatch) {
+        answer = answerMatch[1];
+    }
 
-    return `Here is your interview feedback for ${tech}:
+    let role = "Technical Specialist";
+    const roleMatch = prompt.match(/interviewer for a\s+([^.]+)\s+role/i);
+    if (roleMatch) {
+        role = roleMatch[1];
+    }
 
-1. Subject Matter Expertise: 8 out of 10.
-Strengths: Your response demonstrates a good grasp of the core concepts and fundamental architecture. You correctly identified the primary components and their relationships.
-Areas for Improvement: Try to elaborate more on advanced concepts (such as middleware ordering in Express, database indexing in MongoDB, or concurrency control in Java) to show a deeper production-level understanding.
+    let tech = "general technical concepts";
+    if (prompt.toLowerCase().includes("mern")) tech = "MERN Stack";
+    else if (prompt.toLowerCase().includes("node")) tech = "Node.js";
+    else if (prompt.toLowerCase().includes("java")) tech = "Java Backend";
+    else if (prompt.toLowerCase().includes("html")) tech = "HTML Structure";
+    else if (prompt.toLowerCase().includes("css")) tech = "CSS Layouts";
+    else if (prompt.toLowerCase().includes("javascript")) tech = "JavaScript Logic";
+    else if (prompt.toLowerCase().includes("sql")) tech = "SQL Databases";
+    else if (prompt.toLowerCase().includes("python")) tech = "Python Programming";
+    else if (prompt.toLowerCase().includes("intro")) tech = "Self Introduction Vetting";
 
-2. Communication Skills: 8 out of 10.
-Strengths: You articulated your thoughts clearly and maintained a professional tone. Your logic was structured and easy to follow.
-Areas for Improvement: Work on reducing filler words and structure your answer using the STAR method (Situation, Task, Action, Result) or a top-down summary approach.
+    const wordCount = answer.trim().split(/\s+/).filter(w => w.length > 0).length;
+    let subjectScore = 7;
+    let commsScore = 7;
+    let strengthsSub = "Your response demonstrates a good understanding of the core concepts and standard architecture.";
+    let weaknessesSub = "Try to elaborate more on advanced topics or internal execution mechanics to show production-level maturity.";
+    let strengthsComms = "You articulated your thoughts clearly and maintained a professional tone.";
+    let weaknessesComms = "Focus on structuring your answers using structured methodology and reducing conversational fillers.";
+
+    if (wordCount === 0 || answer.toLowerCase().includes("click on start button")) {
+        subjectScore = 2;
+        commsScore = 2;
+        strengthsSub = "We did not receive any audible or transcribed text response. Please check that your microphone is active and you speak clearly after clicking Start.";
+        weaknessesSub = "You must provide an answer to be evaluated.";
+        strengthsComms = "None observed.";
+        weaknessesComms = "Verify your audio input settings and speak directly into the microphone.";
+    } else if (wordCount < 10) {
+        subjectScore = 4;
+        commsScore = 5;
+        strengthsSub = "You provided a direct but very brief answer.";
+        weaknessesSub = "Your response is too short. Try to elaborate on technical details and provide concrete examples.";
+        strengthsComms = "Your delivery was direct.";
+        weaknessesComms = "Speak in complete sentences and explain the reasoning behind your statements.";
+    } else if (wordCount > 40) {
+        subjectScore = 9;
+        commsScore = 8;
+        strengthsSub = "Your answer was comprehensive, addressing both primary features and practical implementation details.";
+        weaknessesSub = "Ensure you maintain focus on the core question and do not stray into unrelated topics.";
+        strengthsComms = "Excellent vocabulary and detailed elaboration.";
+        weaknessesComms = "Keep answers structured to avoid losing the interviewer's attention.";
+    }
+
+    let techTip = "Focus on explaining the 'why' behind your design patterns.";
+    if (tech === "HTML Structure") {
+        techTip = "Ensure you explain the importance of SEO, accessibility (ARIA roles), and valid semantic tags.";
+    } else if (tech === "CSS Layouts") {
+        techTip = "Mention responsive grid layouts (Flexbox/CSS Grid), browser compatibility, and CSS variables.";
+    } else if (tech === "JavaScript Logic") {
+        techTip = "Cover asynchronous execution loops, variable scoping, and memory closures.";
+    } else if (tech === "SQL Databases") {
+        techTip = "Focus on query speed, normalizations, joins, and indexing structures.";
+    } else if (tech === "Python Programming") {
+        techTip = "Mention generator functions, execution decorators, and Pythonic conventions.";
+    } else if (tech === "Self Introduction Vetting") {
+        techTip = "Structure your pitch around your most impactful projects and why your background fits this company.";
+    }
+
+    return `Here is your interview feedback as a candidate for the ${role} position:
+
+1. Subject Matter Expertise: ${subjectScore} out of 10.
+Strengths: ${strengthsSub}
+Areas for Improvement: ${weaknessesSub}
+
+2. Communication Skills: ${commsScore} out of 10.
+Strengths: ${strengthsComms}
+Areas for Improvement: ${weaknessesComms}
 
 Recommendations:
-First: Practice writing out or speaking small coding examples related to this question.
-Second: Focus on explaining the "why" behind your technical choices, not just the "how".`;
+- Detail: ${techTip}
+- Action: Try to outline a specific project or past scenario where you applied these concepts to solidify your answer.`;
 }
 
 app.listen(PORT, () => {
